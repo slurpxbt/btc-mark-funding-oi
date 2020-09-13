@@ -1,3 +1,9 @@
+############################
+
+# Author: slurpxbt
+
+###########################
+
 # this script pulls oi,funding and mark price data from bitmex, bybit, Okex, Binance for BTC perpetual swap contracts
 
 # ---------------------------
@@ -7,6 +13,11 @@
 # if any other package is missing just pip install it 
 # ---------------------------
 
+#######################################################
+
+# in row 122,138,154,166,178, 262,278,294,306,318 => replace YOUR PATH, with the path to folder where you saved this script
+
+#######################################################
 
 
 # imports --------------------------------------------------
