@@ -43,7 +43,7 @@ import json
 def get_and_store_btc_data():
 
 
-    data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+    data_file_path = "YOUR PATH"
 
     client = bitmex.bitmex(test=False)
     instrument_data = client.Instrument.Instrument_get(symbol='XBTUSD').result()
@@ -175,7 +175,7 @@ def get_and_store_btc_data():
 def get_and_store_eth_data():
 
 
-    data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+    data_file_path = "YOUR PATH"
 
     client = bitmex.bitmex(test=False)
     instrument_data = client.Instrument.Instrument_get(symbol='ETHUSD').result()

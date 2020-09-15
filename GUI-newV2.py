@@ -111,7 +111,7 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView.setModel(model)
         root = Path(".")
-        data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+        data_file_path = "YOUR PATH"
         with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage.txt") as btc:
 
             Lines_btc = btc.readlines()
@@ -129,7 +129,7 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView.setModel(model)
         root = Path(".")
-        data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+        data_file_path = "YOUR PATH"
         with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt") as eth:
             
             Lines_eth = eth.readlines()
