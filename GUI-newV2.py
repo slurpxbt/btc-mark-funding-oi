@@ -1,15 +1,17 @@
-############################
+###########################
 
 # Author: slurpxbt
 
-###########################
+##########################
+# import any missing packages
+#TODO: change file paths in rows 107 and 125
 
-###################################################################################
-# if any packages are missing just pip install them
 
-# in row 110 and 128 => replace YOUR PATH, with the path to folder where you saved this script
-##################################################################################
+####################################################
 
+# simple GUI for btc and eth perpetual futures data
+
+###################################################
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pause
@@ -57,11 +59,13 @@ class Ui_MainWindow(object):
         self.StartBtn.setObjectName("StartBtn")
 
         self.StartBtn.clicked.connect(self.clicked)
+        self.StartBtn.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
         # list view (data is shown in here)
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setGeometry(QtCore.QRect(20, 110, 1111, 1331))
         self.listView.setObjectName("listView")
+        self.listView.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
         # btc data button
         self.btcBtn = QtWidgets.QPushButton(self.centralwidget)
@@ -69,6 +73,7 @@ class Ui_MainWindow(object):
         self.btcBtn.setObjectName("btcBtn")
 
         self.btcBtn.clicked.connect(self.load_btc_data)
+        self.btcBtn.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
         # eth data button
         self.ethBtn = QtWidgets.QPushButton(self.centralwidget)
@@ -76,6 +81,7 @@ class Ui_MainWindow(object):
         self.ethBtn.setObjectName("ethBtn")
 
         self.ethBtn.clicked.connect(self.load_eth_data)
+        self.ethBtn.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -105,8 +111,8 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView.setModel(model)
         root = Path(".")
-
-        with open("YOUR PATH/oi-funding-mark-data/data storage/avgMark_cumOI_oiWfunding_storage.txt") as btc:
+        data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+        with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage.txt") as btc:
 
             Lines_btc = btc.readlines()
 
@@ -123,8 +129,8 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView.setModel(model)
         root = Path(".")
-
-        with open("YOUR PATH/oi-funding-mark-data/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt") as eth:
+        data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
+        with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt") as eth:
             
             Lines_eth = eth.readlines()
 

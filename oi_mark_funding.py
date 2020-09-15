@@ -1,30 +1,26 @@
-############################
+###########################
 
 # Author: slurpxbt
 
 ###########################
-
 # this script pulls oi,funding and mark price data from bitmex, bybit, Okex, Binance for BTC perpetual swap contracts
-
+# and aggreates data from whole market into files
+#TODO: change data_file_path to your own in rows 42 and 174
 # ---------------------------
 # requirements:
 #   pip install bybit
 #   pip install bitmex-ws
+#   pip install APScheduler
+#   pip install bitmex
 # if any other package is missing just pip install it 
 # ---------------------------
 
-#######################################################
-
-# in row 122,138,154,166,178, 262,278,294,306,318 => replace YOUR PATH, with the path to folder where you saved this script
-
-#######################################################
 
 
 # imports --------------------------------------------------
 import numpy as np
 
 # bitmex imports
-from bitmex_websocket import BitMEXWebsocket
 import bitmex
 import datetime
 
@@ -33,8 +29,6 @@ import bybit
 
 # binance imports
 from binance_f import RequestClient
-from binance_f.constant.test import *
-from binance_f.base.printobject import *
 
 # okex imports
 from okex import swap_api as swap
@@ -47,9 +41,9 @@ import json
 
 
 def get_and_store_btc_data():
-    # get data from bitmex
-    # ws_btc = BitMEXWebsocket(endpoint="https://www.bitmex.com", symbol="XBTUSD", api_key=None, api_secret=None)
-    # data_btc = ws_btc.get_instrument()
+
+
+    data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
 
     client = bitmex.bitmex(test=False)
     instrument_data = client.Instrument.Instrument_get(symbol='XBTUSD').result()
@@ -119,12 +113,11 @@ def get_and_store_btc_data():
     all_swap_data_txt = f"{mex_mark};{mex_funding};{mex_oi};{bybit_mark};{bybit_funding};{bybit_oi};{binance_mark};{binance_funding};{binance_oi};{okex_mark};{okex_funding};{okex_oi};{time}\n"
 
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/all_swap_data_storage.txt", "a") as store_swap_data: 
+    with open(f"{data_file_path}/data storage/all_swap_data_storage.txt", "a") as store_swap_data:
         store_swap_data.write(all_swap_data_txt)
         store_swap_data.close()
 
-    # print(all_swap_data_txt)
-    # print(all_swap_data)
+
     # -----------------------------------------------------------
 
     # avg mark, cum OI, oi weighted funding
@@ -135,15 +128,11 @@ def get_and_store_btc_data():
     avgMark_cumOI_oiWfunding = [avg_mark, cum_OI, oi_w_funding, time]
     avgMark_cumOI_oiWfunding_txt = f"{avg_mark};{cum_OI};{oi_w_funding};{time}\n"   # [USD] - [mil USD] - [%]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/avgMark_cumOI_oiWfunding_storage.txt", "a") as store_avgM_cumOi_oiWfund:
+    with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage.txt", "a") as store_avgM_cumOi_oiWfund:
         store_avgM_cumOi_oiWfund.write(avgMark_cumOI_oiWfunding_txt)
         store_avgM_cumOi_oiWfund.close()
 
-    # print(avgMark_cumOI_oiWfunding_txt)
-    # print(avgMark_cumOI_oiWfunding)
-    # print(avg_mark)
-    # print(cum_OI)
-    # print(oi_w_funding)
+
     # -----------------------------------------------------------
 
 
@@ -151,44 +140,42 @@ def get_and_store_btc_data():
     mark_prices = [mex_mark, bybit_mark, binance_mark, okex_mark, time]
     mark_prices_txt = f"{mex_mark};{bybit_mark};{binance_mark};{okex_mark};{time}\n"    # [USD]
 
-    with  open("YOUR PATH/oi-funding-mark-data/data storage/mark_prices_storage.txt", "a") as store_mark_prices:
+    with  open(f"{data_file_path}/data storage/mark_prices_storage.txt", "a") as store_mark_prices:
         store_mark_prices.write(mark_prices_txt)
         store_mark_prices.close()
 
-    # print(mark_prices_txt)
-    # print(mark_prices)
+
     # -----------------------------------------------------------
 
     # fundings
     fundings = [mex_funding, bybit_funding, binance_funding, okex_funding, time]
     fundings_txt = f"{mex_funding};{bybit_funding};{binance_funding};{okex_funding};{time}\n"   # [%]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/fundings_storage.txt", "a") as store_fundings:
+    with open(f"{data_file_path}/data storage/fundings_storage.txt", "a") as store_fundings:
         store_fundings.write(fundings_txt)
         store_fundings.close()
 
-    # print(fundings_txt)
-    # print(fundings)
+
     # -----------------------------------------------------------
 
     # open interests
     open_interests = [mex_oi, bybit_oi, binance_oi, okex_oi, time]
     open_interests_txt = f"{mex_oi};{bybit_oi};{binance_oi};{okex_oi};{time}\n"     # [mil USD]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/open_interests_storage.txt", "a") as store_open_interests:
+    with open(f"{data_file_path}/data storage/open_interests_storage.txt", "a") as store_open_interests:
         store_open_interests.write(open_interests_txt)
         store_open_interests.close()
 
 
-    # print(open_interests_txt)
-    # print(open_interests)
+
     # -----------------------------------------------------------
 
 
 
 def get_and_store_eth_data():
-    # get data from bitmex
-    # ws_btc = BitMEXWebsocket(endpoint="https://www.bitmex.com", symbol="XBTUSD", api_key=None, api_secret=None)
+
+
+    data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
 
     #data_btc = ws_btc.get_instrument()
     client = bitmex.bitmex(test=False)
@@ -259,12 +246,11 @@ def get_and_store_eth_data():
     all_swap_data_txt = f"{mex_mark};{mex_funding};{mex_oi};{bybit_mark};{bybit_funding};{bybit_oi};{binance_mark};{binance_funding};{binance_oi};{okex_mark};{okex_funding};{okex_oi};{time}\n"
 
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/all_swap_data_storage_eth.txt", "a") as store_swap_data: 
+    with open(f"{data_file_path}/data storage/all_swap_data_storage_eth.txt", "a") as store_swap_data:
         store_swap_data.write(all_swap_data_txt)
         store_swap_data.close()
 
-    # print(all_swap_data_txt)
-    # print(all_swap_data)
+
     # -----------------------------------------------------------
 
     # avg mark, cum OI, oi weighted funding
@@ -275,15 +261,11 @@ def get_and_store_eth_data():
     avgMark_cumOI_oiWfunding = [avg_mark, cum_OI, oi_w_funding, time]
     avgMark_cumOI_oiWfunding_txt = f"{avg_mark};{cum_OI};{oi_w_funding};{time}\n"   # [USD] - [mil USD] - [%]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt", "a") as store_avgM_cumOi_oiWfund:
+    with open(f"{data_file_path}/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt", "a") as store_avgM_cumOi_oiWfund:
         store_avgM_cumOi_oiWfund.write(avgMark_cumOI_oiWfunding_txt)
         store_avgM_cumOi_oiWfund.close()
 
-    # print(avgMark_cumOI_oiWfunding_txt)
-    # print(avgMark_cumOI_oiWfunding)
-    # print(avg_mark)
-    # print(cum_OI)
-    # print(oi_w_funding)
+
     # -----------------------------------------------------------
 
 
@@ -291,38 +273,34 @@ def get_and_store_eth_data():
     mark_prices = [mex_mark, bybit_mark, binance_mark, okex_mark, time]
     mark_prices_txt = f"{mex_mark};{bybit_mark};{binance_mark};{okex_mark};{time}\n"    # [USD]
 
-    with  open("YOUR PATH/oi-funding-mark-data/data storage/mark_prices_storage_eth.txt", "a") as store_mark_prices:
+    with  open(f"{data_file_path}/data storage/mark_prices_storage_eth.txt", "a") as store_mark_prices:
         store_mark_prices.write(mark_prices_txt)
         store_mark_prices.close()
 
-    # print(mark_prices_txt)
-    # print(mark_prices)
+
     # -----------------------------------------------------------
 
     # fundings
     fundings = [mex_funding, bybit_funding, binance_funding, okex_funding, time]
     fundings_txt = f"{mex_funding};{bybit_funding};{binance_funding};{okex_funding};{time}\n"   # [%]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/fundings_storage_eth.txt", "a") as store_fundings:
+    with open(f"{data_file_path}/data storage/fundings_storage_eth.txt", "a") as store_fundings:
         store_fundings.write(fundings_txt)
         store_fundings.close()
 
-    # print(fundings_txt)
-    # print(fundings)
+
     # -----------------------------------------------------------
 
     # open interests
     open_interests = [mex_oi, bybit_oi, binance_oi, okex_oi, time]
     open_interests_txt = f"{mex_oi};{bybit_oi};{binance_oi};{okex_oi};{time}\n"     # [mil USD]
 
-    with open("YOUR PATH/oi-funding-mark-data/data storage/open_interests_storage_eth.txt", "a") as store_open_interests:
+    with open(f"{data_file_path}/data storage/open_interests_storage_eth.txt", "a") as store_open_interests:
         store_open_interests.write(open_interests_txt)
         store_open_interests.close()
 
 
-    # print(open_interests_txt)
-    # print(open_interests)
-    # -----------------------------------------------------------
+
 
 
 
