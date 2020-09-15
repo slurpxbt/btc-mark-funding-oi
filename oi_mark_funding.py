@@ -6,10 +6,10 @@
 # this script pulls oi,funding and mark price data from bitmex, bybit, Okex, Binance for BTC perpetual swap contracts
 # and aggreates data from whole market into files
 #TODO: change data_file_path to your own in rows 42 and 174
+
 # ---------------------------
 # requirements:
 #   pip install bybit
-#   pip install bitmex-ws
 #   pip install APScheduler
 #   pip install bitmex
 # if any other package is missing just pip install it 
@@ -177,7 +177,6 @@ def get_and_store_eth_data():
 
     data_file_path = "D:/files/programming/crypto-skripte/oi-funding-mark-data"
 
-    #data_btc = ws_btc.get_instrument()
     client = bitmex.bitmex(test=False)
     instrument_data = client.Instrument.Instrument_get(symbol='ETHUSD').result()
 
