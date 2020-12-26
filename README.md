@@ -9,7 +9,7 @@ Script that pulls btc and eth mark price, funding and oi data from bitmex, bybit
 <p>When you install everything and change the file path, put empty files from <b>empty data storage files</b> folder into <b>data storage</b> folder and replace them</p>
 <p>When you have empty files in <b>data storage</b> folder run <b>GUI-newV2.py</b> and click start. Script will collect data every 15 minutes and you can see data by clicking on BTC or ETH button in GUI, you can also change time interval in <b>GUI-newV2.py</b> file in row 22 -> replace 15 with your desired interval</p>
 
-<b>NEW 26.12.2020: DISCORD INTEGRATION</b>
+<b>NEW [26.12.2020] : DISCORD INTEGRATION</b>
 <p><b>oi_mark_funding_discord.py</b> and <b>collect_data.py</b> script files are needed in the same folder in order for this to work</p>
 <p>Also you need to replace webhook url at the start of <b>oi_mark_funding_discord.py</b> file (line <b>37</b>) and set the time you want to start the script in the <b>collect_data.py</b> file (line <b>8</b>)</p>
 
