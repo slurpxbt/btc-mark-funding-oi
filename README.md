@@ -12,6 +12,7 @@ Script that pulls btc and eth mark price, funding and oi data from bitmex, bybit
 <b>NEW [26.12.2020] : DISCORD INTEGRATION</b>
 <p><b>oi_mark_funding_discord.py</b> and <b>collect_data.py</b> script files are needed in the same folder in order for this to work</p>
 <p>Also you need to replace webhook url at the start of <b>oi_mark_funding_discord.py</b> file (line <b>37</b>) and set the time you want to start the script in the <b>collect_data.py</b> file (line <b>8</b>)</p>
+<p>binance_f and okex folders are also needed in the same folder as script files</>
 
 <b>NOTE</b>
 <p>GUI is not yet finished and it's size could be odd on screens that are not in 4k resolution</p>
